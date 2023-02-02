@@ -33,30 +33,30 @@ class Model implements \ArrayAccess, \IteratorAggregate, \Countable, ToArrayInte
 		$this->data = $data;
 	}
 	
-	public function count()
-	{
+	public function count(): int
+    {
 		return count($this->data);
 	}
 	
-	public function getIterator()
-	{
+	public function getIterator(): \ArrayIterator
+    {
 		return new \ArrayIterator($this->data);
 	}
 	
-	public function toArray()
-	{
+	public function toArray(): array
+    {
 		return $this->data;
 	}
 	
-	public function clear()
-	{
+	public function clear(): Model
+    {
 		$this->data = [];
 		
 		return $this;
 	}
 	
-	public function getAll(array $keys = null)
-	{
+	public function getAll(array $keys = null): array
+    {
 		return $keys ? array_intersect_key($this->data, array_flip($keys)) : $this->data;
 	}
 	
@@ -65,15 +65,15 @@ class Model implements \ArrayAccess, \IteratorAggregate, \Countable, ToArrayInte
 		return isset($this->data[$key]) ? $this->data[$key] : null;
 	}
 	
-	public function set($key, $value)
-	{
+	public function set($key, $value): Model
+    {
 		$this->data[$key] = $value;
 		
 		return $this;
 	}
 	
-	public function add($key, $value)
-	{
+	public function add($key, $value): Model
+    {
 		if (!array_key_exists($key, $this->data)) {
 			$this->data[$key] = $value;
 		} elseif (is_array($this->data[$key])) {
@@ -85,20 +85,20 @@ class Model implements \ArrayAccess, \IteratorAggregate, \Countable, ToArrayInte
 		return $this;
 	}
 	
-	public function remove($key)
-	{
+	public function remove($key): Model
+    {
 		unset($this->data[$key]);
 		
 		return $this;
 	}
 	
-	public function getKeys()
-	{
+	public function getKeys(): array
+    {
 		return array_keys($this->data);
 	}
 	
-	public function hasKey($key)
-	{
+	public function hasKey($key): bool
+    {
 		return array_key_exists($key, $this->data);
 	}
 	
@@ -119,15 +119,15 @@ class Model implements \ArrayAccess, \IteratorAggregate, \Countable, ToArrayInte
 		return array_search($value, $this->data);
 	}
 	
-	public function replace(array $data)
-	{
+	public function replace(array $data): Model
+    {
 		$this->data = $data;
 		
 		return $this;
 	}
 	
-	public function merge($data)
-	{
+	public function merge($data): Model
+    {
 		foreach ($data as $key => $value) {
 			$this->add($key, $value);
 		}
@@ -135,8 +135,8 @@ class Model implements \ArrayAccess, \IteratorAggregate, \Countable, ToArrayInte
 		return $this;
 	}
 	
-	public function overwriteWith($data)
-	{
+	public function overwriteWith($data): Model
+    {
 		if (is_array($data)) {
 			$this->data = $data + $this->data;
 		} else {
@@ -148,8 +148,8 @@ class Model implements \ArrayAccess, \IteratorAggregate, \Countable, ToArrayInte
 		return $this;
 	}
 	
-	public function map(\Closure $closure, array $context = [], $static = true)
-	{
+	public function map(\Closure $closure, array $context = [], $static = true): Model
+    {
 		$collection = $static ? new static() : new self();
 		foreach ($this as $key => $value) {
 			$collection->add($key, $closure($key, $value, $context));
@@ -158,8 +158,8 @@ class Model implements \ArrayAccess, \IteratorAggregate, \Countable, ToArrayInte
 		return $collection;
 	}
 	
-	public function filter(\Closure $closure, $static = true)
-	{
+	public function filter(\Closure $closure, $static = true): Model
+    {
 		$collection = ($static) ? new static() : new self();
 		foreach ($this->data as $key => $value) {
 			if ($closure($key, $value)) {
@@ -170,28 +170,28 @@ class Model implements \ArrayAccess, \IteratorAggregate, \Countable, ToArrayInte
 		return $collection;
 	}
 	
-	public function offsetExists($offset)
-	{
+	public function offsetExists($offset): bool
+    {
 		return isset($this->data[$offset]);
 	}
 	
-	public function offsetGet($offset)
+	public function offsetGet($offset): mixed
 	{
 		return isset($this->data[$offset]) ? $this->data[$offset] : null;
 	}
 	
-	public function offsetSet($offset, $value)
+	public function offsetSet($offset, $value): void
 	{
 		$this->data[$offset] = $value;
 	}
 	
-	public function offsetUnset($offset)
+	public function offsetUnset($offset): void
 	{
 		unset($this->data[$offset]);
 	}
 	
-	public function setPath($path, $value)
-	{
+	public function setPath($path, $value): Model
+    {
 		$current =& $this->data;
 		$queue = explode('/', $path);
 		while (null !== ($key = array_shift($queue))) {

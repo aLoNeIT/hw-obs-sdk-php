@@ -2,7 +2,6 @@
 	"name" : "aloneit/hwobs-sdk-php",
 	"description" : "HuaweiCloud OBS PHP SDK",
 	"license":"Apache-2.0",
-	"version":"1.0",
 	"require" : {
 		"php" : ">=8.0",
 		"guzzlehttp/guzzle" : "^6.3.0 || ^7.0",

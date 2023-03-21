@@ -1,18 +1,21 @@
 {
-	"name" : "aloneit/hwobs-sdk-php",
-	"description" : "HuaweiCloud OBS PHP SDK",
-	"license":"Apache-2.0",
-	"require" : {
-		"php" : ">=8.0",
-		"guzzlehttp/guzzle" : "^6.3.0 || ^7.0",
-		"guzzlehttp/psr7" : "^1.4.2 || ^2.0",
-		"monolog/monolog" : "^1.23.0 || ^2.0"
+	"name": "aloneit/hwobs-sdk-php",
+	"description": "HuaweiCloud OBS PHP SDK",
+	"license": "Apache-2.0",
+	"require": {
+		"php": ">=7.4",
+		"guzzlehttp/guzzle": "^6.3.0 || ^7.0",
+		"guzzlehttp/psr7": "^1.4.2 || ^2.0",
+		"monolog/monolog": "^1.23.0 || ^2.0"
 	},
-	
-	"keywords" :["obs", "php", "huaweicloud"],
+	"keywords": [
+		"obs",
+		"php",
+		"huaweicloud"
+	],
 	"autoload": {
 		"psr-4": {
 			"Obs\\": "Obs/"
 		}
-    }
+	}
 }
